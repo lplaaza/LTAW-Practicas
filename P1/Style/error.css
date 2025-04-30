@@ -1,61 +1,56 @@
 body {
-    font-family: "Serif", serif;
-    background-color:cornflowerblue;
-    color:black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #5a9bd8;
+    color: #222;
     margin: 0;
     padding: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     text-align: center;
 }
 
-
 .contenedor {
-    background-color: cornsilk;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    width: 85%;
-    max-width: 600px;
+    background-color: #fffaf0;
+    padding: 50px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
 }
-
 
 .error h1 {
-    font-size: 36px;
-    margin-bottom: 30px;
-    color: crimson;
+    font-size: 40px;
+    margin-bottom: 25px;
+    color: #ff6b57;
 }
-
 
 .regreso p {
     font-size: 18px;
-    margin-bottom: 25px;
-    color: gray;
+    margin-bottom: 20px;
+    color: #555;
 }
-
 
 .regreso a {
-    font-size: 20px;
+    font-size: 16px;
     text-decoration: none;
-    color: whitesmoke;
-    background-color: lightskyblue;
-    padding: 12px 25px;
+    color: white;
+    background-color: #ff6b57;
+    padding: 12px 24px;
     border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    border: 2px solid lightskyblue;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid transparent;
+    display: inline-block;
 }
-
 
 .regreso a:hover {
-    background-color: rgb(63, 65, 68);
-    border-color:darkgrey;
-    color: whitesmoke;
+    background-color: #e65a46;
+    transform: scale(1.05);
 }
-
 
 .regreso a:focus {
     outline: none;
-    box-shadow: 0 0 8px rgba(33, 102, 177, 0.5);
+    box-shadow: 0 0 8px rgba(230, 90, 70, 0.5);
 }

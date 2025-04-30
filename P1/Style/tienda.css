@@ -1,0 +1,126 @@
+/* Fondo general */
+body {
+    background-image: url('../Images/fondo1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal de productos */
+.productos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 0;
+    gap: 20px;
+}
+
+.producto {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    padding: 25px;
+    width: 220px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Imagen del producto */
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Título del producto */
+.producto h3 {
+    margin: 12px 0;
+}
+
+/* Botón de compra */
+.producto button {
+    background-color: #ff6b57;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Botón al pasar el ratón */
+.producto button:hover {
+    background-color: #e65a46;
+    transform: scale(1.05);
+}
+
+/* Efecto al pasar el ratón por cada producto */
+.producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+header h1 span {
+    color: white;
+    font-size: 46px;
+    letter-spacing: 1px;
+}
+
+/* Estilo para los enlaces (que parecen botones) */
+a {
+    display: inline-block;
+    text-align: center;
+    background-color: #ff6b57;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    text-decoration: none;
+    margin-top: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto de hover en los enlaces */
+a:hover {
+    background-color: #e65a46;
+    transform: translateY(-4px) scale(1.03);
+}
+
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 22px 0;
+    font-size: 14px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
