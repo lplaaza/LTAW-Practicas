@@ -1,26 +1,50 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const { HOST, PORT } = require('./server');
+const electron = require('electron');
+const os = require('os');
+const QRCode = require('qrcode');
 
-function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
-        }
-    });
+let win = null;
 
-    win.loadFile('renderer.html');
+function getLocalIP() {
+  const interfaces = os.networkInterfaces();
+  for (let iface in interfaces) {
+    for (let alias of interfaces[iface]) {
+      if (alias.family === 'IPv4' && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+  return 'localhost';
 }
 
-app.whenReady().then(createWindow);
+electron.app.on('ready', () => {
+  win = new electron.BrowserWindow({
+    width: 600,
+    height: 700,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
 
-ipcMain.handle('get-info', () => {
-    return {
-        node: process.versions.node,
-        chrome: process.versions.chrome,
-        electron: process.versions.electron,
-        serverUrl: `http://${HOST}:${PORT}`
-    };
+  win.loadFile("index.html");
+
+  win.webContents.once('did-finish-load', async () => {
+    const ip = getLocalIP();
+    const url = `http://${ip}:3000`;
+
+    const qrDataUrl = await QRCode.toDataURL(url);
+
+    win.webContents.send('server-info', {
+      ip,
+      url,
+      qrDataUrl,
+      node: process.versions.node,
+      chrome: process.versions.chrome,
+      electron: process.versions.electron
+    });
+  });
+});
+
+electron.ipcMain.handle('test', (event, msg) => {
+  console.log("-> Mensaje recibido desde interfaz: " + msg);
 });

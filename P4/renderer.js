@@ -1,23 +1,20 @@
-window.api.getInfo().then(info => {
-    const ul = document.getElementById('info');
-    ul.innerHTML = `
-        <li>Node: ${info.node}</li>
-        <li>Electron: ${info.electron}</li>
-        <li>Chrome: ${info.chrome}</li>
-        <li>URL del servidor: ${info.serverUrl}</li>
-    `;
-});
+const { ipcRenderer } = require('electron');
+const socket = require('socket.io-client')('http://localhost:3000');
 
-const socket = io(); // Se conecta automáticamente a localhost:3000
-
-socket.on('chat message', (msg) => {
-    const div = document.getElementById('messages');
-    const p = document.createElement('p');
-    p.textContent = msg;
-    div.appendChild(p);
-    div.scrollTop = div.scrollHeight;
+ipcRenderer.on('server-info', (event, data) => {
+  document.getElementById('node').textContent = data.node;
+  document.getElementById('chrome').textContent = data.chrome;
+  document.getElementById('electron').textContent = data.electron;
+  document.getElementById('url').textContent = data.url;
+  document.getElementById('qr').src = data.qrDataUrl;
 });
 
 document.getElementById('testBtn').addEventListener('click', () => {
-    socket.emit('chat message', '[MENSAJE DE PRUEBA DESDE EL SERVIDOR]');
+  socket.emit('chat message', '📢 Mensaje de prueba desde el servidor Electron');
+});
+
+socket.on('chat message', (msg) => {
+  const li = document.createElement('li');
+  li.textContent = msg;
+  document.getElementById('messages').appendChild(li);
 });

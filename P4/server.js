@@ -11,66 +11,64 @@ const io = socketIo(server);
 app.use(express.static('public'));
 
 let users = {};
+let mensajes = [];
 
 io.on('connection', (socket) => {
     socket.on('set nickname', (nickname) => {
         users[socket.id] = nickname;
-        socket.emit('chat message', `🎉 Bienvenido, ${nickname}`);
-        socket.broadcast.emit('chat message', `🔔 ${nickname} se ha conectado`);
+        const msg = `🎉 Bienvenido, ${nickname}`;
+        socket.emit('chat message', msg);
+        io.emit('chat message', `🔔 ${nickname} se ha conectado`);
+        mensajes.push(msg);
     });
 
     socket.on('chat message', (msg) => {
         const nickname = users[socket.id] || 'Anónimo';
+        let output;
         if (msg.startsWith('/')) {
-            let response;
             switch (msg) {
-                case '/help':
-                    response = 'Comandos: /help, /list, /hello, /date';
-                    break;
-                case '/list':
-                    response = `Usuarios conectados: ${Object.keys(users).length}`;
-                    break;
-                case '/hello':
-                    response = `¡Hola, ${nickname}!`;
-                    break;
-                case '/date':
-                    response = `Fecha actual: ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`;
-                    break;
-                default:
-                    response = 'Comando no reconocido. Usa /help';
+                case '/help': output = 'Comandos: /help, /list, /hello, /date'; break;
+                case '/list': output = `Usuarios conectados: ${Object.keys(users).length}`; break;
+                case '/hello': output = `¡Hola, ${nickname}!`; break;
+                case '/date': output = `Fecha actual: ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`; break;
+                default: output = 'Comando no reconocido. Usa /help';
             }
-            socket.emit('chat message', `🟡 [COMANDO] ${response}`);
+            socket.emit('chat message', `🟡 [COMANDO] ${output}`);
+            mensajes.push(`[CMD] ${output}`);
         } else {
-            io.emit('chat message', `💬 ${nickname}: ${msg}`);
+            const full = `💬 ${nickname}: ${msg}`;
+            io.emit('chat message', full);
+            mensajes.push(full);
         }
-    });
-
-    socket.on('typing', () => {
-        const nickname = users[socket.id] || 'Alguien';
-        socket.broadcast.emit('typing', `${nickname} está escribiendo...`);
     });
 
     socket.on('disconnect', () => {
         const nickname = users[socket.id] || 'Usuario';
         delete users[socket.id];
-        socket.broadcast.emit('chat message', `❌ ${nickname} se ha desconectado`);
+        const msg = `❌ ${nickname} se ha desconectado`;
+        io.emit('chat message', msg);
+        mensajes.push(msg);
     });
 });
 
-function getLocalIP() {
+function getIP() {
     const interfaces = os.networkInterfaces();
-    for (let name in interfaces) {
-        for (let iface of interfaces[name]) {
-            if (iface.family === 'IPv4' && !iface.internal) return iface.address;
-        }
+    for (let iface of Object.values(interfaces).flat()) {
+        if (iface.family === 'IPv4' && !iface.internal) return iface.address;
     }
     return 'localhost';
 }
 
-const PORT = process.env.PORT || 4000;
-const HOST = getLocalIP();
+const HOST = getIP();
+const PORT = 3000;
+
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
 });
 
-module.exports = { HOST, PORT };
+module.exports = {
+    HOST,
+    PORT,
+    mensajes,
+    io
+};
