@@ -1,18 +1,15 @@
 {
-  "name": "chat-electron-app",
+  "name": "electron-chat",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "dependencies": {
-    "dayjs": "^1.11.10",
-    "express": "^4.18.2",
-    "qrcode": "^1.5.1",
-    "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
-  },
-  "devDependencies": {
-    "electron": "^27.0.0"
+    "dayjs": "^1.11.0",
+    "electron": "^29.0.0",
+    "express": "^4.18.0",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.7.2"
   }
 }

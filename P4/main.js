@@ -1,50 +1,42 @@
 const electron = require('electron');
-const os = require('os');
-const QRCode = require('qrcode');
+const { HOST, PORT, mensajes, io } = require('./server');
 
 let win = null;
 
-function getLocalIP() {
-  const interfaces = os.networkInterfaces();
-  for (let iface in interfaces) {
-    for (let alias of interfaces[iface]) {
-      if (alias.family === 'IPv4' && !alias.internal) {
-        return alias.address;
-      }
-    }
-  }
-  return 'localhost';
-}
-
 electron.app.on('ready', () => {
-  win = new electron.BrowserWindow({
-    width: 600,
-    height: 700,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
+    console.log("Evento Ready!");
 
-  win.loadFile("index.html");
-
-  win.webContents.once('did-finish-load', async () => {
-    const ip = getLocalIP();
-    const url = `http://${ip}:3000`;
-
-    const qrDataUrl = await QRCode.toDataURL(url);
-
-    win.webContents.send('server-info', {
-      ip,
-      url,
-      qrDataUrl,
-      node: process.versions.node,
-      chrome: process.versions.chrome,
-      electron: process.versions.electron
+    win = new electron.BrowserWindow({
+        width: 600,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     });
-  });
+
+    win.loadFile("index.html");
+
+    // Enviar mensaje inicial y datos del sistema
+    win.webContents.on('did-finish-load', () => {
+        win.webContents.send('info', {
+            node: process.versions.node,
+            electron: process.versions.electron,
+            chrome: process.versions.chrome,
+            url: `http://${HOST}:${PORT}`,
+            mensajes
+        });
+    });
+
+    // Si llega un nuevo mensaje al servidor, enviarlo a la GUI
+    io.on('connection', (socket) => {
+        socket.on('chat message', (msg) => {
+            win.webContents.send('nuevo-mensaje', msg);
+        });
+    });
 });
 
-electron.ipcMain.handle('test', (event, msg) => {
-  console.log("-> Mensaje recibido desde interfaz: " + msg);
+// Recibe evento desde botón de prueba
+electron.ipcMain.handle('test', () => {
+    io.emit('chat message', '[MENSAJE DE PRUEBA DESDE ELECTRON]');
 });

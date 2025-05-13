@@ -1,20 +1,34 @@
 const { ipcRenderer } = require('electron');
-const socket = require('socket.io-client')('http://localhost:3000');
+const QRCode = require('qrcode');
 
-ipcRenderer.on('server-info', (event, data) => {
-  document.getElementById('node').textContent = data.node;
-  document.getElementById('chrome').textContent = data.chrome;
-  document.getElementById('electron').textContent = data.electron;
-  document.getElementById('url').textContent = data.url;
-  document.getElementById('qr').src = data.qrDataUrl;
+ipcRenderer.on('info', (event, info) => {
+    document.getElementById('node').textContent = `Node: ${info.node}`;
+    document.getElementById('electron').textContent = `Electron: ${info.electron}`;
+    document.getElementById('chrome').textContent = `Chrome: ${info.chrome}`;
+    document.getElementById('url').textContent = `Clientes deben conectarse a: ${info.url}`;
+
+    const contenedor = document.getElementById('mensajes');
+    info.mensajes.forEach(msg => {
+        const p = document.createElement('p');
+        p.textContent = msg;
+        contenedor.appendChild(p);
+    });
+
+    // Generar QR con la URL
+    QRCode.toCanvas(document.getElementById('qrcode'), info.url, function (error) {
+        if (error) console.error(error);
+        console.log('QR generado!');
+    });
 });
 
-document.getElementById('testBtn').addEventListener('click', () => {
-  socket.emit('chat message', '📢 Mensaje de prueba desde el servidor Electron');
+ipcRenderer.on('nuevo-mensaje', (event, msg) => {
+    const contenedor = document.getElementById('mensajes');
+    const p = document.createElement('p');
+    p.textContent = msg;
+    contenedor.appendChild(p);
+    contenedor.scrollTop = contenedor.scrollHeight;
 });
 
-socket.on('chat message', (msg) => {
-  const li = document.createElement('li');
-  li.textContent = msg;
-  document.getElementById('messages').appendChild(li);
+document.getElementById('botonTest').addEventListener('click', () => {
+    ipcRenderer.invoke('test');
 });

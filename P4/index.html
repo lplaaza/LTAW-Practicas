@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Servidor Chat - Electron</title>
+    <meta charset="UTF-8">
+    <title>Servidor de Chat</title>
 </head>
 <body>
-  <h1>Servidor de Chat</h1>
+    <h1>Servidor de Chat</h1>
+    <ul>
+        <li id="node"></li>
+        <li id="electron"></li>
+        <li id="chrome"></li>
+        <li id="url"></li>
+    </ul>
 
-  <p><strong>Versión Node:</strong> <span id="node"></span></p>
-  <p><strong>Versión Chrome:</strong> <span id="chrome"></span></p>
-  <p><strong>Versión Electron:</strong> <span id="electron"></span></p>
-  <p><strong>URL del servidor:</strong> <span id="url"></span></p>
+    <h2>Mensajes recibidos</h2>
+    <div id="mensajes" style="border: 1px solid #aaa; height: 200px; overflow-y: scroll;"></div>
+    <br>
+    <button id="botonTest">Enviar mensaje de prueba</button>
 
-  <h3>Código QR para conectarse:</h3>
-  <img id="qr" width="200" height="200" />
-
-  <h3>Mensajes entrantes:</h3>
-  <ul id="messages"></ul>
-
-  <button id="testBtn">Enviar mensaje de prueba</button>
-
-  <script src="renderer.js"></script>
+    <h2>Conexión</h2>
+    <p id="url"></p>
+    <canvas id="qrcode"></canvas>
+    
+    <script src="renderer.js"></script>
 </body>
 </html>
