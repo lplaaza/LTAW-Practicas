@@ -1,0 +1,29 @@
+body {
+    font-family: Arial;
+    margin: 20px;
+    background: #f4f4f4;
+}
+
+#messages {
+    list-style: none;
+    padding: 0;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    background: white;
+    margin-bottom: 10px;
+}
+
+#messages li {
+    padding: 5px 10px;
+}
+
+#form {
+    display: flex;
+}
+
+#input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #aaa;
+}
