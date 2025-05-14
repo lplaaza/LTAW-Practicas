@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nombre del Producto - Mi Tienda</title>
+  <link rel="stylesheet" href="../Style/producto.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Nombre del Producto</h1>
+  </header>
+
+  <main class="producto-detalle producto-generico">
+    <img id="imagen-producto" src="../Images/placeholder.png" alt="Imagen del producto" class="producto-imagen" />
+
+    <div class="producto-info">
+      <h2>Descripción</h2>
+      <p>Este es un producto de ejemplo. Aquí puedes escribir una descripción general destacando sus características, utilidad o valor estético.</p>
+
+      <h3>Precio: 00.00€</h3>
+
+      <div class="botones">
+        <a href="#" class="boton">Comprar</a>
+        <a href="../Pages/tienda.html" class="boton">Volver a la tienda</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const selector = document.getElementById('variantes');
+    const imagen = document.getElementById('imagen-producto');
+
+    selector.addEventListener('change', function () {
+      imagen.src = `../Images/${this.value}`;
+    });
+  </script>
+
+</body>
+</html>

@@ -27,8 +27,6 @@ const server = http.createServer((req, res) => {
     let content_type;
     let recurso;
 
-    //-- Declaro content-tyoe y recurso. Se definen los accesos a los distintosa rchivos PNG, CSS, HTML, JS
-    //-- JPEG, JPG o cualquier otra ruta pedida
     if(req.url.endswith('.png')) {
         content_type = 'image/png';
         recurso = path.join(__dirname, 'Images', path.basename(req.url));
