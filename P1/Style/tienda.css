@@ -1,126 +1,104 @@
-/* Fondo general */
-body {
-    background-image: url('../Images/fondo1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Reset básico */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Contenedor principal de productos */
-.productos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 0;
-    gap: 20px;
-}
-
-.producto {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 15px;
-    padding: 25px;
-    width: 220px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-/* Imagen del producto */
-.producto img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-}
-
-/* Título del producto */
-.producto h3 {
-    margin: 12px 0;
-}
-
-/* Botón de compra */
-.producto button {
-    background-color: #ff6b57;
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Botón al pasar el ratón */
-.producto button:hover {
-    background-color: #e65a46;
-    transform: scale(1.05);
-}
-
-/* Efecto al pasar el ratón por cada producto */
-.producto:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Header */
 header {
+    background-color: #ffffff;
+    padding: 20px 0;
     text-align: center;
-    padding: 25px;
-    background-color: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 header h1 span {
-    color: white;
-    font-size: 46px;
-    letter-spacing: 1px;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 2rem;
 }
 
-/* Estilo para los enlaces (que parecen botones) */
-a {
-    display: inline-block;
+/* Contenido principal */
+main {
+    padding: 40px 5%;
+}
+
+/* Grid de productos */
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+/* Tarjeta de producto */
+.producto {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
     text-align: center;
-    background-color: #ff6b57;
-    color: white;
-    padding: 12px 22px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
     border-radius: 8px;
-    font-size: 15px;
-    text-decoration: none;
-    margin-top: 12px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Efecto de hover en los enlaces */
-a:hover {
-    background-color: #e65a46;
-    transform: translateY(-4px) scale(1.03);
+.producto h3 {
+    margin: 15px 0;
+    font-size: 1.1rem;
+    color: #2d3436;
 }
 
-footer {
-    background-color: #222;
+/* Botón comprar */
+.boton-comprar {
+    display: inline-block;
+    background-color: #3498db;
     color: white;
-    text-align: center;
-    padding: 22px 0;
-    font-size: 14px;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px;
+.boton-comprar:hover {
+    background-color: #2980b9;
+}
+
+/* Footer */
+footer {
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    padding: 20px 5%;
+    text-align: center;
+    color: #555;
+    margin-top: 40px;
+    font-size: 0.9rem;
 }
 
 .footer-links a {
-    color: white;
+    color: #3498db;
     text-decoration: none;
-    margin: 0 12px;
-    transition: opacity 0.3s;
+    margin: 0 8px;
 }
 
 .footer-links a:hover {
     text-decoration: underline;
-    opacity: 0.8;
 }

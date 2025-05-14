@@ -1,7 +1,14 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #5a9bd8;
-    color: #222;
+    background-color: #f9f9f9;
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,18 +19,18 @@ body {
 }
 
 .contenedor {
-    background-color: #fffaf0;
+    background-color: #ffffff;
     padding: 50px 30px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     width: 90%;
-    max-width: 500px;
+    max-width: 480px;
 }
 
 .error h1 {
-    font-size: 40px;
+    font-size: 32px;
     margin-bottom: 25px;
-    color: #ff6b57;
+    color: #2c3e50;
 }
 
 .regreso p {
@@ -35,22 +42,22 @@ body {
 .regreso a {
     font-size: 16px;
     text-decoration: none;
-    color: white;
-    background-color: #ff6b57;
+    color: #ffffff;
+    background-color: #3498db;
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    border: 2px solid transparent;
+    border: none;
     display: inline-block;
 }
 
 .regreso a:hover {
-    background-color: #e65a46;
+    background-color: #2980b9;
     transform: scale(1.05);
 }
 
 .regreso a:focus {
     outline: none;
-    box-shadow: 0 0 8px rgba(230, 90, 70, 0.5);
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
 }
